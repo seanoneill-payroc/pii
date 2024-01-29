@@ -1,0 +1,6 @@
+@Example.Host_HostAddress = http://localhost:5099
+
+GET {{Example.Host_HostAddress}}/
+Accept: application/json
+
+###
