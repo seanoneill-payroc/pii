@@ -2,8 +2,12 @@
 
 namespace Example.Module;
 
-public record TestThing(string Value)
+public record TestThing(
+    [property: Pii(MaskingStrategy.FullMask)] 
+    string Value, 
+    [property:Pii(MaskingStrategy.LastFour)]
+    string CreditCard)
 {
-    [Pii(MaskingStrategy.FullMask)]
-    public string Value { get; init; } = Value;
 }
+
+public record Complex(TestThing Child, string OtherValue);

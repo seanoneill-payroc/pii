@@ -30,6 +30,7 @@ public class PiiDestructurePolicy : IDestructuringPolicy
             }
             else
             {
+                //[TODO: support nested objects? this may do so inherently by calling this factory]
                 var logEventProp = propertyValueFactory.CreatePropertyValue(prop.GetValue(value));
                 logEventProps.Add(new(prop.Name, logEventProp));
             }

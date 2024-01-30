@@ -5,7 +5,9 @@ using Serilog;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog((_, _, configuration) => configuration
-    .AddPiiDestructurer(typeof(TestThing).Assembly) //simulate module, realistically this would be baked into the assembly scan that is already happening or a loop could be built over services of registered IApiModules, [TODO: research required]
+    //simulate module, realistically this would be baked into the assembly scan that is already happening
+    //or a loop could be built over services of registered IApiModules, [TODO: research required]
+    .AddPiiDestructurer(typeof(TestThing).Assembly) 
     .WriteTo.Console()
 );
 
@@ -31,8 +33,8 @@ app.UseHttpsRedirection();
 
 app.MapGet("/", (ILogger<TestThing> logger) =>
     {
-        var obj = new TestThing("top secret");
-        logger.LogInformation("I'm logging top secret object casually: {@TestThing}", obj);
+        var obj = new Complex(new TestThing("top secret", "1234567890123456"), "Tah dah");
+        logger.LogInformation("I'm logging top secret object casually: {@Object}", obj);
         return obj;
     })
 .WithName("Test Thing")
